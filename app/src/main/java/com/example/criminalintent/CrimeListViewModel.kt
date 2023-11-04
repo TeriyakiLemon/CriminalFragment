@@ -12,13 +12,13 @@ import kotlin.math.log
 private const val TAG = "CrimeListViewModel"
 class CrimeListViewModel : ViewModel() {
     private val crimeRepository = CrimeRespository.get()
-    val crimes = mutableListOf<Crime>()
-
+//    val crimes = mutableListOf<Crime>()
+    val crimes = crimeRepository.getCrimes()
     init {
-        Log.d(TAG, "Init starting")
+//        Log.d(TAG, "Init starting")
         viewModelScope.launch {
-            Log.d(TAG, "Coroutine launched")
-            crimes += loadCrimes()
+//            Log.d(TAG, "Coroutine launched")
+//            crimes += loadCrimes()
 //            delay(5000)
 //            for (i in 0 until 100) {
 //                val crime = Crime(
@@ -29,11 +29,11 @@ class CrimeListViewModel : ViewModel() {
 //            )
 //                crimes += crime
 //        }
-            Log.d(TAG, "Loading crimes finished")
+//            Log.d(TAG, "Loading crimes finished")
         }
     }
 
-    suspend fun loadCrimes(): List<Crime> {
+ //   suspend fun loadCrimes(): List<Crime> {
 //        val result = mutableListOf<Crime>()
 //
 //        delay(5000)
@@ -48,9 +48,9 @@ class CrimeListViewModel : ViewModel() {
 //
 //        }
 //        return result
-        return crimeRepository.getCrimes()
+ //       return crimeRepository.getCrimes()
 
-    }
+  //  }
 
 }
 

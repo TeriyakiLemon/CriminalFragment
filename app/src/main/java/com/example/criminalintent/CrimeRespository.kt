@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import database.CrimeDatabase
+import kotlinx.coroutines.flow.Flow
 import java.util.UUID
 
 private const val DATABASE_NAME ="crime-database"
@@ -17,20 +18,20 @@ class CrimeRespository private constructor(context: Context){
         .createFromAsset(DATABASE_NAME)
         .build()
 
-    suspend fun getCrimes():List<Crime> = database.crimeDao().getCrimes()
+     fun getCrimes():Flow<List<Crime>> = database.crimeDao().getCrimes()
 
     suspend fun getCrimes(id: UUID) : Crime = database.crimeDao().getCrime(id)
     companion object{
-        private var INSTANT: CrimeRespository?= null
+        private var INSTANCE: CrimeRespository?= null
 
         fun initialize(context : Context){
-            if(INSTANT == null){
-                INSTANT = CrimeRespository(context)
+            if(INSTANCE == null){
+                INSTANCE = CrimeRespository(context)
             }
         }
 
         fun get():CrimeRespository{
-            return INSTANT ?:
+            return INSTANCE ?:
             throw java.lang.IllegalStateException("CrimeRepository must be initialized")
         }
     }
